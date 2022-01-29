@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,14 +11,47 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Offset> points = [];
-  late Color brushColor = Colors.red;
+  late Color brushColor = Colors.black;
   late double brushStrokeWidth = 2.0;
 
   @override
   void initState() {
-    brushColor = Colors.red;
+    brushColor = Colors.black;
     brushStrokeWidth = 2.0;
     super.initState();
+  }
+
+  void changeBrushColor() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Select any color'),
+          content: SingleChildScrollView(
+            child: BlockPicker(
+              pickerColor: brushColor,
+              onColorChanged: (color) {
+                setState(
+                  () {
+                    brushColor = color;
+                  },
+                );
+              },
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  Navigator.of(context).pop();
+                });
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -104,15 +138,19 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            changeBrushColor();
+                          });
+                        },
                         icon: const Icon(Icons.color_lens),
+                        color: brushColor,
                       ),
                       Expanded(
                         child: SliderTheme(
                           data: const SliderThemeData(
                             activeTickMarkColor: Colors.transparent,
                             inactiveTickMarkColor: Colors.transparent,
-                            // showValueIndicator: false,
                           ),
                           child: Slider(
                             value: brushStrokeWidth,
@@ -169,8 +207,8 @@ class ScreenPainter extends CustomPainter {
     canvas.drawRect(rect, background);
 
     Paint brush = Paint()
-      ..color = Colors.black
-      ..strokeWidth = 2.0
+      ..color = brushColor
+      ..strokeWidth = brushStrokeWidth
       ..isAntiAlias = true
       ..strokeCap = StrokeCap.round;
 
