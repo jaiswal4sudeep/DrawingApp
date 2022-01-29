@@ -54,6 +54,174 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void changeBrushSize() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Select brush size'),
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  setState(
+                    () {
+                      brushStrokeWidth = 1;
+                    },
+                  );
+                },
+                child: Container(
+                  width: 100,
+                  height: 1,
+                  color: brushColor,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(
+                    () {
+                      brushStrokeWidth = 2;
+                    },
+                  );
+                },
+                child: Container(
+                  width: 100,
+                  height: 2,
+                  color: brushColor,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(
+                    () {
+                      brushStrokeWidth = 3;
+                    },
+                  );
+                },
+                child: Container(
+                  width: 100,
+                  height: 3,
+                  color: brushColor,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(
+                    () {
+                      brushStrokeWidth = 4;
+                    },
+                  );
+                },
+                child: Container(
+                  width: 100,
+                  height: 4,
+                  color: brushColor,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(
+                    () {
+                      brushStrokeWidth = 5;
+                    },
+                  );
+                },
+                child: Container(
+                  width: 100,
+                  height: 5,
+                  color: brushColor,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(
+                    () {
+                      brushStrokeWidth = 6;
+                    },
+                  );
+                },
+                child: Container(
+                  width: 100,
+                  height: 6,
+                  color: brushColor,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(
+                    () {
+                      brushStrokeWidth = 7;
+                    },
+                  );
+                },
+                child: Container(
+                  width: 100,
+                  height: 7,
+                  color: brushColor,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(
+                    () {
+                      brushStrokeWidth = 8;
+                    },
+                  );
+                },
+                child: Container(
+                  width: 100,
+                  height: 8,
+                  color: brushColor,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(
+                    () {
+                      brushStrokeWidth = 9;
+                    },
+                  );
+                },
+                child: Container(
+                  width: 100,
+                  height: 9,
+                  color: brushColor,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(
+                    () {
+                      brushStrokeWidth = 10;
+                    },
+                  );
+                },
+                child: Container(
+                  width: 100,
+                  height: 10,
+                  color: brushColor,
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                setState(
+                  () {
+                    Navigator.of(context).pop();
+                  },
+                );
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,7 +290,7 @@ class _HomePageState extends State<HomePage> {
                   height: 20,
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.80,
+                  width: MediaQuery.of(context).size.width * 0.70,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
                     color: Colors.white,
@@ -147,26 +315,18 @@ class _HomePageState extends State<HomePage> {
                         color: brushColor,
                       ),
                       Expanded(
-                        child: SliderTheme(
-                          data: const SliderThemeData(
-                            activeTickMarkColor: Colors.transparent,
-                            inactiveTickMarkColor: Colors.transparent,
-                          ),
-                          child: Slider(
-                            value: brushStrokeWidth,
-                            min: 1.0,
-                            max: 10.0,
-                            divisions: 10,
-                            activeColor: brushColor,
-                            inactiveColor: brushColor.withOpacity(0.3),
-                            label: brushStrokeWidth.round().toString(),
-                            onChanged: (value) {
-                              setState(
-                                () {
-                                  brushStrokeWidth = value;
-                                },
-                              );
-                            },
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              changeBrushSize();
+                            });
+                          },
+                          child: Container(
+                            height: brushStrokeWidth,
+                            decoration: BoxDecoration(
+                              color: brushColor,
+                              borderRadius: BorderRadius.circular(50),
+                            ),
                           ),
                         ),
                       ),
@@ -176,7 +336,7 @@ class _HomePageState extends State<HomePage> {
                             points.clear();
                           });
                         },
-                        icon: const Icon(Icons.layers_clear),
+                        icon: const Icon(Icons.refresh_rounded),
                       ),
                     ],
                   ),
