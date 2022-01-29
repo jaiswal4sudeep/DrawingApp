@@ -10,6 +10,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Offset> points = [];
+  late Color brushColor = Colors.red;
+  late double brushStrokeWidth = 2.0;
+
+  @override
+  void initState() {
+    brushColor = Colors.red;
+    brushStrokeWidth = 2.0;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     onPanEnd: (details) {
                       setState(() {
-                        points.add(null);
+                        points.add(Offset.infinite);
                       });
                     },
                     child: ClipRRect(
@@ -68,42 +77,72 @@ class _HomePageState extends State<HomePage> {
                       child: CustomPaint(
                         painter: ScreenPainter(
                           points: points,
+                          brushColor: brushColor,
+                          brushStrokeWidth: brushStrokeWidth,
                         ),
                       ),
                     ),
                   ),
                 ),
-                // const SizedBox(
-                //   height: 20,
-                // ),
-                // Container(
-                //   width: MediaQuery.of(context).size.width * 0.80,
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(25),
-                //     color: Colors.white,
-                //     boxShadow: [
-                //       BoxShadow(
-                //         color: Colors.black.withOpacity(0.4),
-                //         blurRadius: 5.0,
-                //         spreadRadius: 1.0,
-                //         offset: const Offset(5, 5),
-                //       ),
-                //     ],
-                //   ),
-                //   child: Row(
-                //     children: [
-                //       IconButton(
-                //         onPressed: () {},
-                //         icon: const Icon(Icons.color_lens),
-                //       ),
-                //       // Slider(value: value, onChanged: onChanged),
-                //       IconButton(
-                //         onPressed: () {},
-                //         icon: const Icon(Icons.layers_clear),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.80,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.4),
+                        blurRadius: 5.0,
+                        spreadRadius: 1.0,
+                        offset: const Offset(5, 5),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.color_lens),
+                      ),
+                      Expanded(
+                        child: SliderTheme(
+                          data: const SliderThemeData(
+                            activeTickMarkColor: Colors.transparent,
+                            inactiveTickMarkColor: Colors.transparent,
+                            // showValueIndicator: false,
+                          ),
+                          child: Slider(
+                            value: brushStrokeWidth,
+                            min: 1.0,
+                            max: 10.0,
+                            divisions: 10,
+                            activeColor: brushColor,
+                            inactiveColor: brushColor.withOpacity(0.3),
+                            label: brushStrokeWidth.round().toString(),
+                            onChanged: (value) {
+                              setState(
+                                () {
+                                  brushStrokeWidth = value;
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            points.clear();
+                          });
+                        },
+                        icon: const Icon(Icons.layers_clear),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -115,8 +154,13 @@ class _HomePageState extends State<HomePage> {
 
 class ScreenPainter extends CustomPainter {
   List<Offset> points;
+  Color brushColor;
+  double brushStrokeWidth;
 
-  ScreenPainter({required this.points});
+  ScreenPainter(
+      {required this.points,
+      required this.brushColor,
+      required this.brushStrokeWidth});
 
   @override
   void paint(Canvas canvas, Size size) {
