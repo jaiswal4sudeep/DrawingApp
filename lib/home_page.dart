@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -12,12 +14,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Offset> points = [];
   late Color brushColor = Colors.black;
-  late double brushStrokeWidth = 2.0;
+  late double brushStrokeWidth = 5.0;
 
   @override
   void initState() {
     brushColor = Colors.black;
-    brushStrokeWidth = 2.0;
+    brushStrokeWidth = 5.0;
     super.initState();
   }
 
@@ -63,8 +65,11 @@ class _HomePageState extends State<HomePage> {
           content: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              GestureDetector(
-                onTap: () {
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(0),
+                ),
+                onPressed: () {
                   setState(
                     () {
                       brushStrokeWidth = 1;
@@ -72,13 +77,16 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 child: Container(
-                  width: 100,
+                  width: 150,
                   height: 1,
                   color: brushColor,
                 ),
               ),
-              GestureDetector(
-                onTap: () {
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(0),
+                ),
+                onPressed: () {
                   setState(
                     () {
                       brushStrokeWidth = 2;
@@ -86,13 +94,16 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 child: Container(
-                  width: 100,
+                  width: 150,
                   height: 2,
                   color: brushColor,
                 ),
               ),
-              GestureDetector(
-                onTap: () {
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(0),
+                ),
+                onPressed: () {
                   setState(
                     () {
                       brushStrokeWidth = 3;
@@ -100,13 +111,16 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 child: Container(
-                  width: 100,
+                  width: 150,
                   height: 3,
                   color: brushColor,
                 ),
               ),
-              GestureDetector(
-                onTap: () {
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(0),
+                ),
+                onPressed: () {
                   setState(
                     () {
                       brushStrokeWidth = 4;
@@ -114,13 +128,16 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 child: Container(
-                  width: 100,
+                  width: 150,
                   height: 4,
                   color: brushColor,
                 ),
               ),
-              GestureDetector(
-                onTap: () {
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(0),
+                ),
+                onPressed: () {
                   setState(
                     () {
                       brushStrokeWidth = 5;
@@ -128,13 +145,16 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 child: Container(
-                  width: 100,
+                  width: 150,
                   height: 5,
                   color: brushColor,
                 ),
               ),
-              GestureDetector(
-                onTap: () {
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(0),
+                ),
+                onPressed: () {
                   setState(
                     () {
                       brushStrokeWidth = 6;
@@ -142,13 +162,16 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 child: Container(
-                  width: 100,
+                  width: 150,
                   height: 6,
                   color: brushColor,
                 ),
               ),
-              GestureDetector(
-                onTap: () {
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(0),
+                ),
+                onPressed: () {
                   setState(
                     () {
                       brushStrokeWidth = 7;
@@ -156,13 +179,16 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 child: Container(
-                  width: 100,
+                  width: 150,
                   height: 7,
                   color: brushColor,
                 ),
               ),
-              GestureDetector(
-                onTap: () {
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(0),
+                ),
+                onPressed: () {
                   setState(
                     () {
                       brushStrokeWidth = 8;
@@ -170,36 +196,8 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 child: Container(
-                  width: 100,
+                  width: 150,
                   height: 8,
-                  color: brushColor,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(
-                    () {
-                      brushStrokeWidth = 9;
-                    },
-                  );
-                },
-                child: Container(
-                  width: 100,
-                  height: 9,
-                  color: brushColor,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(
-                    () {
-                      brushStrokeWidth = 10;
-                    },
-                  );
-                },
-                child: Container(
-                  width: 100,
-                  height: 10,
                   color: brushColor,
                 ),
               ),
@@ -290,7 +288,7 @@ class _HomePageState extends State<HomePage> {
                   height: 20,
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.70,
+                  width: MediaQuery.of(context).size.width * 0.80,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
                     color: Colors.white,
@@ -305,21 +303,28 @@ class _HomePageState extends State<HomePage> {
                   ),
                   child: Row(
                     children: [
-                      IconButton(
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.all(0),
+                        ),
                         onPressed: () {
                           setState(() {
                             changeBrushColor();
                           });
                         },
-                        icon: const Icon(Icons.color_lens),
-                        color: brushColor,
+                        child: const Icon(
+                          Icons.color_lens,
+                          color: Colors.black,
+                        ),
                       ),
                       Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              changeBrushSize();
-                            });
+                        child: TextButton(
+                          onPressed: () {
+                            setState(
+                              () {
+                                changeBrushSize();
+                              },
+                            );
                           },
                           child: Container(
                             height: brushStrokeWidth,
@@ -330,13 +335,19 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      IconButton(
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.all(0),
+                        ),
                         onPressed: () {
                           setState(() {
                             points.clear();
                           });
                         },
-                        icon: const Icon(Icons.refresh_rounded),
+                        child: const Icon(
+                          Icons.refresh,
+                          color: Colors.black,
+                        ),
                       ),
                     ],
                   ),
