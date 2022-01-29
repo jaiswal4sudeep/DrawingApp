@@ -4,6 +4,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+class DrawingBoard {
+  Offset points;
+  Paint brush;
+
+  DrawingBoard({required this.brush, required this.points});
+}
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -12,7 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Offset> points = [];
+  List<DrawingBoard> points = [];
   late Color brushColor = Colors.black;
   late double brushStrokeWidth = 5.0;
 
@@ -79,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     width: 150,
                     height: 1,
-                    color: brushColor,
+                    color: Colors.black,
                   ),
                 ),
                 TextButton(
@@ -93,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     width: 150,
                     height: 2,
-                    color: brushColor,
+                    color: Colors.black,
                   ),
                 ),
                 TextButton(
@@ -107,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     width: 150,
                     height: 3,
-                    color: brushColor,
+                    color: Colors.black,
                   ),
                 ),
                 TextButton(
@@ -121,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     width: 150,
                     height: 4,
-                    color: brushColor,
+                    color: Colors.black,
                   ),
                 ),
                 TextButton(
@@ -135,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     width: 150,
                     height: 5,
-                    color: brushColor,
+                    color: Colors.black,
                   ),
                 ),
                 TextButton(
@@ -149,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     width: 150,
                     height: 6,
-                    color: brushColor,
+                    color: Colors.black,
                   ),
                 ),
                 TextButton(
@@ -163,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     width: 150,
                     height: 7,
-                    color: brushColor,
+                    color: Colors.black,
                   ),
                 ),
                 TextButton(
@@ -177,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     width: 150,
                     height: 8,
-                    color: brushColor,
+                    color: Colors.black,
                   ),
                 ),
               ],
@@ -211,8 +218,8 @@ class _HomePageState extends State<HomePage> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFF2AFC89),
-                  Color(0xFF82E0A0),
+                  Color(0xFFfdf4f4),
+                  Color(0xFFd4cdcd),
                 ],
               ),
             ),
@@ -226,31 +233,70 @@ class _HomePageState extends State<HomePage> {
                   height: MediaQuery.of(context).size.height * 0.70,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    boxShadow: [
+                    color: const Color(0xFFece4e4),
+                    boxShadow: const [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.4),
-                        blurRadius: 5.0,
-                        spreadRadius: 1.0,
-                        offset: const Offset(5, 5),
+                        color: Color(0xFFc9c2c2),
+                        blurRadius: 15.0,
+                        spreadRadius: 0.15,
+                        offset: Offset(15, 15),
+                      ),
+                      BoxShadow(
+                        color: Color(0xFFfff7f7),
+                        blurRadius: 15.0,
+                        spreadRadius: 0.15,
+                        offset: Offset(-15, -15),
                       ),
                     ],
                   ),
                   child: GestureDetector(
                     onPanDown: (details) {
-                      setState(() {
-                        points.add(details.localPosition);
-                      });
+                      setState(
+                        () {
+                          points.add(
+                            DrawingBoard(
+                              points: details.localPosition,
+                              brush: Paint()
+                                ..strokeCap = StrokeCap.round
+                                ..color = brushColor
+                                ..isAntiAlias = true
+                                ..strokeWidth = brushStrokeWidth,
+                            ),
+                          );
+                        },
+                      );
                     },
                     onPanUpdate: (details) {
-                      setState(() {
-                        points.add(details.localPosition);
-                      });
+                      setState(
+                        () {
+                          points.add(
+                            DrawingBoard(
+                              points: details.localPosition,
+                              brush: Paint()
+                                ..strokeCap = StrokeCap.round
+                                ..color = brushColor
+                                ..isAntiAlias = true
+                                ..strokeWidth = brushStrokeWidth,
+                            ),
+                          );
+                        },
+                      );
                     },
                     onPanEnd: (details) {
-                      setState(() {
-                        points.add(Offset.infinite);
-                      });
+                      setState(
+                        () {
+                          points.add(
+                            DrawingBoard(
+                              brush: Paint()
+                                ..strokeCap = StrokeCap.round
+                                ..strokeWidth = brushStrokeWidth
+                                ..color = brushColor
+                                ..isAntiAlias = true,
+                              points: Offset.infinite,
+                            ),
+                          );
+                        },
+                      );
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
@@ -265,19 +311,25 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.80,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
-                    color: Colors.white,
-                    boxShadow: [
+                    color: const Color(0xFFece4e4),
+                    boxShadow: const [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.4),
-                        blurRadius: 5.0,
-                        spreadRadius: 1.0,
-                        offset: const Offset(5, 5),
+                        color: Color(0xFFc9c2c2),
+                        blurRadius: 15.0,
+                        spreadRadius: 0.15,
+                        offset: Offset(15, 15),
+                      ),
+                      BoxShadow(
+                        color: Color(0xFFfff7f7),
+                        blurRadius: 15.0,
+                        spreadRadius: 0.15,
+                        offset: Offset(-15, -15),
                       ),
                     ],
                   ),
@@ -289,9 +341,9 @@ class _HomePageState extends State<HomePage> {
                             changeBrushColor();
                           });
                         },
-                        child: const Icon(
-                          Icons.color_lens,
-                          color: Colors.black,
+                        child: Icon(
+                          Icons.circle,
+                          color: brushColor,
                         ),
                       ),
                       Expanded(
@@ -306,7 +358,7 @@ class _HomePageState extends State<HomePage> {
                           child: Container(
                             height: brushStrokeWidth,
                             decoration: BoxDecoration(
-                              color: brushColor,
+                              color: Colors.black,
                               borderRadius: BorderRadius.circular(50),
                             ),
                           ),
@@ -336,7 +388,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class ScreenPainter extends CustomPainter {
-  List<Offset> points;
+  List<DrawingBoard> points;
   Color brushColor;
   double brushStrokeWidth;
 
@@ -347,21 +399,17 @@ class ScreenPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    Paint background = Paint()..color = Colors.white;
+    Paint background = Paint()..color = const Color(0xFFece4e4);
     Rect rect = Rect.fromLTWH(0, 0, size.width, size.height);
     canvas.drawRect(rect, background);
 
-    Paint brush = Paint()
-      ..color = brushColor
-      ..strokeWidth = brushStrokeWidth
-      ..isAntiAlias = true
-      ..strokeCap = StrokeCap.round;
-
     for (int x = 0; x < points.length - 1; x++) {
       if (points[x] != null && points[x + 1] != null) {
-        canvas.drawLine(points[x], points[x + 1], brush);
+        Paint brush = points[x].brush;
+        canvas.drawLine(points[x].points, points[x + 1].points, brush);
       } else if (points[x] != null && points[x + 1] == null) {
-        canvas.drawPoints(PointMode.points, [points[x]], brush);
+        Paint brush = points[x].brush;
+        canvas.drawPoints(PointMode.points, [points[x].points], brush);
       }
     }
   }
