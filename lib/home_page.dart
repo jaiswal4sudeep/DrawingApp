@@ -29,7 +29,8 @@ class _HomePageState extends State<HomePage> {
       builder: (context) {
         return AlertDialog(
           title: const Text('Select any color'),
-          content: SingleChildScrollView(
+          content: SizedBox(
+            height: 300,
             child: BlockPicker(
               pickerColor: brushColor,
               onColorChanged: (color) {
@@ -62,146 +63,125 @@ class _HomePageState extends State<HomePage> {
       builder: (context) {
         return AlertDialog(
           title: const Text('Select brush size'),
-          content: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(0),
+          content: SizedBox(
+            height: 400,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    setState(
+                      () {
+                        brushStrokeWidth = 1;
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: 150,
+                    height: 1,
+                    color: brushColor,
+                  ),
                 ),
-                onPressed: () {
-                  setState(
-                    () {
-                      brushStrokeWidth = 1;
-                    },
-                  );
-                },
-                child: Container(
-                  width: 150,
-                  height: 1,
-                  color: brushColor,
+                TextButton(
+                  onPressed: () {
+                    setState(
+                      () {
+                        brushStrokeWidth = 2;
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: 150,
+                    height: 2,
+                    color: brushColor,
+                  ),
                 ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(0),
+                TextButton(
+                  onPressed: () {
+                    setState(
+                      () {
+                        brushStrokeWidth = 3;
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: 150,
+                    height: 3,
+                    color: brushColor,
+                  ),
                 ),
-                onPressed: () {
-                  setState(
-                    () {
-                      brushStrokeWidth = 2;
-                    },
-                  );
-                },
-                child: Container(
-                  width: 150,
-                  height: 2,
-                  color: brushColor,
+                TextButton(
+                  onPressed: () {
+                    setState(
+                      () {
+                        brushStrokeWidth = 4;
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: 150,
+                    height: 4,
+                    color: brushColor,
+                  ),
                 ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(0),
+                TextButton(
+                  onPressed: () {
+                    setState(
+                      () {
+                        brushStrokeWidth = 5;
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: 150,
+                    height: 5,
+                    color: brushColor,
+                  ),
                 ),
-                onPressed: () {
-                  setState(
-                    () {
-                      brushStrokeWidth = 3;
-                    },
-                  );
-                },
-                child: Container(
-                  width: 150,
-                  height: 3,
-                  color: brushColor,
+                TextButton(
+                  onPressed: () {
+                    setState(
+                      () {
+                        brushStrokeWidth = 6;
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: 150,
+                    height: 6,
+                    color: brushColor,
+                  ),
                 ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(0),
+                TextButton(
+                  onPressed: () {
+                    setState(
+                      () {
+                        brushStrokeWidth = 7;
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: 150,
+                    height: 7,
+                    color: brushColor,
+                  ),
                 ),
-                onPressed: () {
-                  setState(
-                    () {
-                      brushStrokeWidth = 4;
-                    },
-                  );
-                },
-                child: Container(
-                  width: 150,
-                  height: 4,
-                  color: brushColor,
+                TextButton(
+                  onPressed: () {
+                    setState(
+                      () {
+                        brushStrokeWidth = 8;
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: 150,
+                    height: 8,
+                    color: brushColor,
+                  ),
                 ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(0),
-                ),
-                onPressed: () {
-                  setState(
-                    () {
-                      brushStrokeWidth = 5;
-                    },
-                  );
-                },
-                child: Container(
-                  width: 150,
-                  height: 5,
-                  color: brushColor,
-                ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(0),
-                ),
-                onPressed: () {
-                  setState(
-                    () {
-                      brushStrokeWidth = 6;
-                    },
-                  );
-                },
-                child: Container(
-                  width: 150,
-                  height: 6,
-                  color: brushColor,
-                ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(0),
-                ),
-                onPressed: () {
-                  setState(
-                    () {
-                      brushStrokeWidth = 7;
-                    },
-                  );
-                },
-                child: Container(
-                  width: 150,
-                  height: 7,
-                  color: brushColor,
-                ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(0),
-                ),
-                onPressed: () {
-                  setState(
-                    () {
-                      brushStrokeWidth = 8;
-                    },
-                  );
-                },
-                child: Container(
-                  width: 150,
-                  height: 8,
-                  color: brushColor,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
           actions: [
             TextButton(
@@ -304,9 +284,6 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     children: [
                       TextButton(
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.all(0),
-                        ),
                         onPressed: () {
                           setState(() {
                             changeBrushColor();
@@ -336,9 +313,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       TextButton(
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.all(0),
-                        ),
                         onPressed: () {
                           setState(() {
                             points.clear();
